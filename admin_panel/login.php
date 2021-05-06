@@ -12,18 +12,14 @@ if($_POST){
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo $user['password'];
-    echo $password;
-
     if($user){
+        if($user['password'] == $password){
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['logged_in'] = time();
+
             header('Location: index.php');
-
-        // if($user['password'] == $password){
-        //     $_SESSION['user_id'] = $user['id'];
-        //     $_SESSION['logged_in'] = time();
-
-        //     header('Location: index.php');
-        // }
+        }
     }
     echo "<script>alert('no match result');</script>";
     
